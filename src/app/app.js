@@ -8,9 +8,11 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.handleAppIDChange = this.handleAppIDChange.bind(this);
+        this.handleTempAppIDChange = this.handleTempAppIDChange.bind(this);
         this.handleKeywordChange = this.handleKeywordChange.bind(this);
         this.state = {
             app_id: '',
+            temp_app_id: '',
             keywords: ''
         }
     }
@@ -18,6 +20,12 @@ class App extends React.Component {
      handleAppIDChange(app_id) {
         this.setState({
             app_id: app_id
+        });
+    }
+
+    handleTempAppIDChange(temp_app_id) {
+        this.setState({
+            temp_app_id: temp_app_id
         });
     }
 
@@ -29,17 +37,23 @@ class App extends React.Component {
 
     render() {
         const app_id = this.state.app_id;
+        const temp_id = this.state.temp_app_id;
         const handleAppIDChange = this.handleAppIDChange;
+        const handleTempAppIDChange = this.handleTempAppIDChange;
         const handleKeywordChange = this.handleKeywordChange;
         const keywords = this.state.keywords;
         return(
             <div>
                 <Route exact path='/' render={ (props) => <AppIDWindow {...props} 
                     appID={ app_id }
-                    appIDChange={ this.handleAppIDChange } /> }  
+                    tempAppID={ temp_id }
+                    tempAppIDChange={ handleTempAppIDChange }
+                    appIDChange={ handleAppIDChange } /> }  
                 />
                 <Route path="/dashboard" render={ (props) => <Dashboard {...props}
                     appID={ app_id }
+                    tempAppID={ temp_id }
+                    tempAppIDChange={ handleTempAppIDChange }
                     appIDChange={ handleAppIDChange }
                     keywords={ keywords } 
                     keywordChange={ handleKeywordChange }/> } 
