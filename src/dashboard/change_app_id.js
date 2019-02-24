@@ -28,17 +28,25 @@ class ChangeAppID extends React.Component {
     }
     
     render() {
+        const appID = this.props.appID;
+        const tempAppID = this.props.tempAppID;
+        const appIDChange = this.props.appIDChange;
+        const tempAppIDChange = this.props.tempAppIDChange;
+        const handleModalClose = this.handleModalClose;
+        const dashHistory = this.props.dashHistory;
+
         return(
             <div>
                 <Button variant="warning" onClick={ this.handleModalOpen }>Change API Key</Button>
                 <Modal show={ this.state.showModal } onHide={ this.handleModalClose }>
                     <Modal.Body>
                         <AppIDWindow 
-                            appID={ this.props.appID } 
-                            appIDChange={ this.props.appIDChange } 
-                            appIDVerify={ this.props.appIDVerify }
-                            closeModal={ this.handleModalClose }
-                            history={ this.props.history }
+                            appID={ appID } 
+                            tempAppID={ tempAppID }
+                            appIDChange={ appIDChange } 
+                            tempAppIDChange={ tempAppIDChange }
+                            dashHistory={ dashHistory }
+                            closeModal={ handleModalClose }
                         />
                     </Modal.Body>
                 </Modal>
