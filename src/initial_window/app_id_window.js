@@ -19,25 +19,30 @@ class AppIDWindow extends React.Component {
 
     handleChange(event) {
         event.preventDefault();
-        this.props.appIDChange(event.target.value)
+        this.props.tempAppIDChange(event.target.value)
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(this.props.appID)
-        VerifyAppID(this.props.appID , this.props.history)
-        if (this.props.history.location.pathname === '/dashboard') {
-            // This will prompt a "closeModal is not a function" error in console.
-            // This is due to the closeModal prop not being passed a function 
-            // during the "/" Route render.
-            // closeModal is not used on the initial AppID entry and is only 
-            // used on the "/dashboard" screen when the "Change API Key" button is pressed.
-            this.props.closeModal();
-        }
+
+        VerifyAppID(this.props.tempAppID)
+            .then((data) => {
+                this.props.appIDChange(this.props.tempAppID)
+                this.props.tempAppIDChange('')
+                if (this.props.dashHistory) {
+                    this.props.closeModal();
+                } else {
+                    this.props.history.push('/dashboard');
+                }
+            }).catch((data) => {
+                alert('Invalid App ID.  Please enter a valid App ID.')
+                this.props.tempAppIDChange('')
+            });
     }
 
     render() {
         const app_id = this.props.appID;
+        const temp_app_id = this.props.tempAppID;
         const handleChange = this.handleChange;
         const handleSubmit = this.handleSubmit;
 
@@ -55,7 +60,7 @@ class AppIDWindow extends React.Component {
                     <Col>
                         <Form onSubmit={ handleSubmit }>
                             <Form.Label >App ID key</Form.Label>
-                            <Form.Control value={ app_id } placeholder="Enter app ID" onChange={ handleChange }/>
+                            <Form.Control value={ temp_app_id } placeholder="Enter app ID" onChange={ handleChange }/>
                             {/* <Form.Text>
                                 Use a User token if users other than the eBay dev account holder is using the app.
                             </Form.Text> */}
