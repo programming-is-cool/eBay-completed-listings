@@ -28,7 +28,7 @@ function VerifyAppID (appID) {
                 if (response.statusCode == 200 && jsonData.findCompletedItemsResponse) {
                     authenticated = true;
                     resolve(authenticated)
-                } else if (response.statusCode === 500) {
+                } else {
                     try {
                         var auth_message = jsonData.errorMessage[0].error[0].message[0]
                         console.log(auth_message)
