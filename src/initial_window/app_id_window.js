@@ -35,8 +35,12 @@ class AppIDWindow extends React.Component {
                     this.props.history.push('/dashboard');
                 }
             }).catch((data) => {
-                alert('Invalid App ID.  Please enter a valid App ID.')
-                this.props.tempAppIDChange('')
+                if (!this.props.tempAppID) {
+                    alert('The field is blank.  Please enter a valid App ID.')
+                } else {
+                    alert('Invalid App ID.  Please enter a valid App ID.')
+                    this.props.tempAppIDChange('')
+                }
             });
     }
 
