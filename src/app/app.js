@@ -10,22 +10,24 @@ class App extends React.Component {
         this.handleAppIDChange = this.handleAppIDChange.bind(this);
         this.handleTempAppIDChange = this.handleTempAppIDChange.bind(this);
         this.handleKeywordChange = this.handleKeywordChange.bind(this);
+        this.handleAvgSalesChange = this.handleAvgSalesChange.bind(this);
         this.state = {
-            app_id: '',
-            temp_app_id: '',
-            keywords: ''
+            appID: '',
+            tempAppID: '',
+            keywords: '',
+            avgSalePrice: 0
         }
     }
 
-     handleAppIDChange(app_id) {
+     handleAppIDChange(appID) {
         this.setState({
-            app_id: app_id
+            appID: appID
         });
     }
 
-    handleTempAppIDChange(temp_app_id) {
+    handleTempAppIDChange(tempAppID) {
         this.setState({
-            temp_app_id: temp_app_id
+            tempAppID: tempAppID
         });
     }
 
@@ -35,28 +37,38 @@ class App extends React.Component {
         });
     }
 
+    handleAvgSalesChange(avgSalePrice) {
+        this.setState({
+            avgSalePrice: avgSalePrice
+        })
+    }
+
     render() {
-        const app_id = this.state.app_id;
-        const temp_id = this.state.temp_app_id;
+        const appID = this.state.appID;
+        const tempAppID = this.state.tempAppID;
+        const keywords = this.state.keywords;
+        const avgSalePrice = this.state.avgSalePrice;
         const handleAppIDChange = this.handleAppIDChange;
         const handleTempAppIDChange = this.handleTempAppIDChange;
         const handleKeywordChange = this.handleKeywordChange;
-        const keywords = this.state.keywords;
+        const handleAvgSalesChange = this.handleAvgSalesChange;
         return(
             <div>
-                <Route exact path='/' render={ (props) => <AppIDWindow {...props} 
-                    appID={ app_id }
-                    tempAppID={ temp_id }
+                <Route exact path='/' render={ (props) => <AppIDWindow {...props}
+                    tempAppID={ tempAppID }
                     tempAppIDChange={ handleTempAppIDChange }
                     appIDChange={ handleAppIDChange } /> }  
                 />
                 <Route path="/dashboard" render={ (props) => <Dashboard {...props}
-                    appID={ app_id }
-                    tempAppID={ temp_id }
+                    appID={ appID }
+                    tempAppID={ tempAppID }
+                    keywords={ keywords } 
+                    avgSalePrice={ avgSalePrice }
                     tempAppIDChange={ handleTempAppIDChange }
                     appIDChange={ handleAppIDChange }
-                    keywords={ keywords } 
-                    keywordChange={ handleKeywordChange }/> } 
+                    keywordChange={ handleKeywordChange }
+                    handleAvgSalesChange={ handleAvgSalesChange }
+                    /> } 
                 />
             </div>
         );
