@@ -24,26 +24,30 @@ function VerifyAppID (appID) {
             });
 
             response.on('end', () => {
-                const jsonData = JSON.parse(data);
-                if (response.statusCode == 200 && jsonData.findCompletedItemsResponse) {
+                try {
+                    var jsonData = JSON.parse(data);
+                } catch (error) {
+                    console.log('There was an error parsing the JSON file. ' + error.message)
+                    reject(authenticated)
+                }
+
+                if (response.statusCode == 200 && jsonData.findCompletedItemsResponse[0].ack[0] === 'Success') {
                     authenticated = true;
                     resolve(authenticated)
-                } else {
-                    try {
-                        var auth_message = jsonData.errorMessage[0].error[0].message[0]
-                        console.log(auth_message)
-                        reject(authenticated);
-                    } catch (error) {
-                        console.log('An unknown error has occurred.  Please retry authentication.')
-                        reject(authenticated);
-                    }
                 }
+
+                try {
+                    var auth_message = jsonData.errorMessage[0].error[0].message[0]
+                    console.log(auth_message)
+                    reject(authenticated);
+                } catch (error) {
+                    console.log('An unknown error has occurred.  Please retry authentication.')
+                    reject(authenticated);
+                }
+
             })
-
         })
-
     })
-
     return promise;
 }
 
