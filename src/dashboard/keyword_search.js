@@ -1,6 +1,10 @@
 import React from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import CompletedListingsRequest from '../../utils/api_request'
+import { GetSold } from '../../utils/parsing'
+import { SalePriceAverage } from '../../utils/calculations'
+const fs = require('fs')
 require('../../assets/css/bootstrap.min.css')
 
 class KeywordSearch extends React.Component {
@@ -17,7 +21,25 @@ class KeywordSearch extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log("Handle submit works.")
+        if (!this.props.keywords) {
+            alert('The keyword field is blank.');
+        } else {
+            CompletedListingsRequest(this.props.appID, this.props.keywords)
+            .then((data) => {
+                const statusRes = data.findCompletedItemsResponse[0].ack[0];
+                if (statusRes === 'Success') {
+                    const itemsList = data.findCompletedItemsResponse[0].searchResult[0].item;
+                    const soldList = GetSold(itemsList)
+                    const avgSalesPrice = SalePriceAverage(soldList)
+                    this.props.handleAvgSalesChange(avgSalesPrice)
+                } else if (statusRes === 'Failure') {
+                    alert('No information from eBay was retrieved.  Check your keywords and try again.')
+                }
+            })
+            .catch((data) => {
+                console.log(data)
+            })
+        }
     }
 
     render() {
