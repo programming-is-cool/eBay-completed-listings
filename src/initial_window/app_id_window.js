@@ -24,8 +24,10 @@ class AppIDWindow extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-
-        VerifyAppID(this.props.tempAppID)
+        if (!this.props.tempAppID) {
+            alert('The App ID field is blank.')
+        } else {
+            VerifyAppID(this.props.tempAppID)
             .then((data) => {
                 this.props.appIDChange(this.props.tempAppID)
                 this.props.tempAppIDChange('')
@@ -35,18 +37,14 @@ class AppIDWindow extends React.Component {
                     this.props.history.push('/dashboard');
                 }
             }).catch((data) => {
-                if (!this.props.tempAppID) {
-                    alert('The field is blank.  Please enter a valid App ID.')
-                } else {
-                    alert('Invalid App ID.  Please enter a valid App ID.')
-                    this.props.tempAppIDChange('')
-                }
+                alert('Invalid App ID.  Please enter a valid App ID.')
+                this.props.tempAppIDChange('')
             });
+        }
     }
 
     render() {
-        const app_id = this.props.appID;
-        const temp_app_id = this.props.tempAppID;
+        const tempAppID = this.props.tempAppID;
         const handleChange = this.handleChange;
         const handleSubmit = this.handleSubmit;
 
@@ -64,7 +62,7 @@ class AppIDWindow extends React.Component {
                     <Col>
                         <Form onSubmit={ handleSubmit }>
                             <Form.Label >App ID key</Form.Label>
-                            <Form.Control value={ temp_app_id } placeholder="Enter app ID" onChange={ handleChange }/>
+                            <Form.Control value={ tempAppID } placeholder="Enter app ID" onChange={ handleChange }/>
                             {/* <Form.Text>
                                 Use a User token if users other than the eBay dev account holder is using the app.
                             </Form.Text> */}
