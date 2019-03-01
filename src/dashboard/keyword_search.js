@@ -27,7 +27,6 @@ class KeywordSearch extends React.Component {
             .then((data) => {
                 const statusRes = data.findCompletedItemsResponse[0].ack[0];
                 if (statusRes === 'Success') {
-                    console.log(data)
                     const itemsList = data.findCompletedItemsResponse[0].searchResult[0].item;
                     const listingQty = data.findCompletedItemsResponse[0].searchResult[0]['@count']; 
                     const soldList = GetSold(itemsList)
