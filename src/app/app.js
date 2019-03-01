@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
-import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import { HashRouter as Router, Route } from 'react-router-dom'
 import AppIDWindow from '../initial_window/app_id_window'
 import Dashboard from '../dashboard/dashboard';
 
@@ -11,11 +11,15 @@ class App extends React.Component {
         this.handleTempAppIDChange = this.handleTempAppIDChange.bind(this);
         this.handleKeywordChange = this.handleKeywordChange.bind(this);
         this.handleAvgSalesChange = this.handleAvgSalesChange.bind(this);
+        this.handlelistingQtyChange = this.handlelistingQtyChange.bind(this);
+        this.handlePctSoldChange = this.handlePctSoldChange.bind(this);
         this.state = {
             appID: '',
             tempAppID: '',
             keywords: '',
-            avgSalePrice: 0
+            avgSalePrice: 0,
+            listingQty: 0,
+            pctSold: 0
         }
     }
 
@@ -43,15 +47,34 @@ class App extends React.Component {
         })
     }
 
+    handlelistingQtyChange(listingQty) {
+        this.setState({
+            listingQty: listingQty
+        })
+    }
+
+    handlePctSoldChange(pctSold) {
+        this.setState({
+            pctSold: pctSold
+        })
+    }
+
     render() {
+
         const appID = this.state.appID;
         const tempAppID = this.state.tempAppID;
         const keywords = this.state.keywords;
         const avgSalePrice = this.state.avgSalePrice;
+        const listingQty = this.state.listingQty;
+        const pctSold = this.state.pctSold;
+
         const handleAppIDChange = this.handleAppIDChange;
         const handleTempAppIDChange = this.handleTempAppIDChange;
         const handleKeywordChange = this.handleKeywordChange;
         const handleAvgSalesChange = this.handleAvgSalesChange;
+        const handlelistingQtyChange = this.handlelistingQtyChange;
+        const handlePctSoldChange = this.handlePctSoldChange;
+
         return(
             <div>
                 <Route exact path='/' render={ (props) => <AppIDWindow {...props}
@@ -64,10 +87,14 @@ class App extends React.Component {
                     tempAppID={ tempAppID }
                     keywords={ keywords } 
                     avgSalePrice={ avgSalePrice }
+                    listingQty={ listingQty }
+                    pctSold={ pctSold }
                     tempAppIDChange={ handleTempAppIDChange }
                     appIDChange={ handleAppIDChange }
                     keywordChange={ handleKeywordChange }
                     handleAvgSalesChange={ handleAvgSalesChange }
+                    handlelistingQtyChange={ handlelistingQtyChange }
+                    handlePctSoldChange={ handlePctSoldChange }
                     /> } 
                 />
             </div>
