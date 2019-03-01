@@ -3,8 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import CompletedListingsRequest from '../../utils/api_request'
 import { GetSold } from '../../utils/parsing'
-import { SalePriceAverage } from '../../utils/calculations'
-const fs = require('fs')
+import { SalePriceAverage, getSoldPct } from '../../utils/calculations'
 require('../../assets/css/bootstrap.min.css')
 
 class KeywordSearch extends React.Component {
@@ -23,14 +22,19 @@ class KeywordSearch extends React.Component {
         event.preventDefault();
         if (!this.props.keywords) {
             alert('The keyword field is blank.');
-        } else {
+        } else { 
             CompletedListingsRequest(this.props.appID, this.props.keywords)
             .then((data) => {
                 const statusRes = data.findCompletedItemsResponse[0].ack[0];
                 if (statusRes === 'Success') {
+                    console.log(data)
                     const itemsList = data.findCompletedItemsResponse[0].searchResult[0].item;
+                    const listingQty = data.findCompletedItemsResponse[0].searchResult[0]['@count']; 
                     const soldList = GetSold(itemsList)
                     const avgSalesPrice = SalePriceAverage(soldList)
+                    const soldPct = getSoldPct(soldList, listingQty)
+                    this.props.handlelistingQtyChange(listingQty)
+                    this.props.handlePctSoldChange(soldPct)
                     this.props.handleAvgSalesChange(avgSalesPrice)
                 } else if (statusRes === 'Failure') {
                     alert('No information from eBay was retrieved.  Check your keywords and try again.')
@@ -48,6 +52,7 @@ class KeywordSearch extends React.Component {
         const keywords = this.props.keywords;
         const handleChange = this.handleChange;
         const handleSubmit = this.handleSubmit;
+
         return(
             <Form inline className='mx-auto' onSubmit={ handleSubmit }>
                 <Form.Label className="mr-2 text-white">Keywords</Form.Label>
