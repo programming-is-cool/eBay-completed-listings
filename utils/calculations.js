@@ -22,4 +22,9 @@ function SalePriceAverage(soldItemList) {
     return RoundTo(avg, 2);
 }
 
-export { SalePriceAverage };
+function getSoldPct(soldItemList, qty) {
+    let pct = (soldItemList.length / qty) * 100;
+    return RoundTo(pct, 2);
+}
+
+export { SalePriceAverage, getSoldPct };
