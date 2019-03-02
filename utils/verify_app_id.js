@@ -41,7 +41,7 @@ function VerifyAppID (appID) {
                     console.log(auth_message)
                     reject(authenticated);
                 } catch (error) {
-                    console.log('An unknown error has occurred.  Please retry authentication.')
+                    console.log('An unknown error has occurred.')
                     reject(authenticated);
                 }
 
