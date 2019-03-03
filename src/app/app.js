@@ -13,13 +13,15 @@ class App extends React.Component {
         this.handleAvgSalesChange = this.handleAvgSalesChange.bind(this);
         this.handlelistingQtyChange = this.handlelistingQtyChange.bind(this);
         this.handlePctSoldChange = this.handlePctSoldChange.bind(this);
+        this.handleListingsChange = this.handleListingsChange.bind(this);
         this.state = {
             appID: '',
             tempAppID: '',
             keywords: '',
             avgSalePrice: 0,
             listingQty: 0,
-            pctSold: 0
+            pctSold: 0,
+            listings: []
         }
     }
 
@@ -59,6 +61,12 @@ class App extends React.Component {
         })
     }
 
+    handleListingsChange(listings) {
+        this.setState({
+            listings: listings
+        })
+    }
+
     render() {
 
         const appID = this.state.appID;
@@ -67,6 +75,7 @@ class App extends React.Component {
         const avgSalePrice = this.state.avgSalePrice;
         const listingQty = this.state.listingQty;
         const pctSold = this.state.pctSold;
+        const listings = this.state.listings;
 
         const handleAppIDChange = this.handleAppIDChange;
         const handleTempAppIDChange = this.handleTempAppIDChange;
@@ -74,27 +83,33 @@ class App extends React.Component {
         const handleAvgSalesChange = this.handleAvgSalesChange;
         const handlelistingQtyChange = this.handlelistingQtyChange;
         const handlePctSoldChange = this.handlePctSoldChange;
+        const handleListingsChange = this.handleListingsChange;
 
         return(
             <div>
-                <Route exact path='/' render={ (props) => <AppIDWindow {...props}
-                    tempAppID={ tempAppID }
-                    tempAppIDChange={ handleTempAppIDChange }
-                    appIDChange={ handleAppIDChange } /> }  
+                <Route exact path='/' render={ (props) => 
+                    <AppIDWindow {...props}
+                        tempAppID={ tempAppID }
+                        tempAppIDChange={ handleTempAppIDChange }
+                        appIDChange={ handleAppIDChange } 
+                    /> }  
                 />
-                <Route path="/dashboard" render={ (props) => <Dashboard {...props}
-                    appID={ appID }
-                    tempAppID={ tempAppID }
-                    keywords={ keywords } 
-                    avgSalePrice={ avgSalePrice }
-                    listingQty={ listingQty }
-                    pctSold={ pctSold }
-                    tempAppIDChange={ handleTempAppIDChange }
-                    appIDChange={ handleAppIDChange }
-                    keywordChange={ handleKeywordChange }
-                    handleAvgSalesChange={ handleAvgSalesChange }
-                    handlelistingQtyChange={ handlelistingQtyChange }
-                    handlePctSoldChange={ handlePctSoldChange }
+                <Route path="/dashboard" render={ (props) => 
+                    <Dashboard {...props}
+                        appID={ appID }
+                        tempAppID={ tempAppID }
+                        keywords={ keywords } 
+                        avgSalePrice={ avgSalePrice }
+                        listingQty={ listingQty }
+                        pctSold={ pctSold }
+                        listings={ listings }
+                        tempAppIDChange={ handleTempAppIDChange }
+                        appIDChange={ handleAppIDChange }
+                        keywordChange={ handleKeywordChange }
+                        handleAvgSalesChange={ handleAvgSalesChange }
+                        handlelistingQtyChange={ handlelistingQtyChange }
+                        handlePctSoldChange={ handlePctSoldChange }
+                        handleListingsChange={ handleListingsChange } 
                     /> } 
                 />
             </div>
