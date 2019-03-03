@@ -5,18 +5,20 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col'
 import ChangeAppID from './change_app_id'
 import KeywordSearch from './keyword_search'
+import Listings from './listings'
 
 require('../../assets/css/bootstrap.min.css')
 require('../../assets/css/custom.css')
 
 function Dashboard (props) {
-        // State passed down from "App" component
+    // State passed down from "App" component
     const appID = props.appID;
     const tempAppID = props.tempAppID;
     const keywords = props.keywords;
     const avgSalePrice = props.avgSalePrice;
     const listingQty = props.listingQty;
     const pctSold = props.pctSold;
+    const listings = props.listings
 
     const appIDChange = props.appIDChange;
     const tempAppIDChange = props.tempAppIDChange
@@ -24,12 +26,13 @@ function Dashboard (props) {
     const handleAvgSalesChange = props.handleAvgSalesChange;
     const handlelistingQtyChange = props.handlelistingQtyChange;
     const handlePctSoldChange = props.handlePctSoldChange; 
+    const handleListingsChange = props.handleListingsChange;
 
     const dashHistory = props.history;
 
     return(
         <div>
-            <NavBar bg="dark">
+            <NavBar sticky="top" bg="dark">
                 <ChangeAppID 
                     appID={ appID }
                     tempAppID={ tempAppID }
@@ -44,6 +47,7 @@ function Dashboard (props) {
                     handleAvgSalesChange={ handleAvgSalesChange }
                     handlelistingQtyChange={ handlelistingQtyChange }
                     handlePctSoldChange={ handlePctSoldChange }
+                    handleListingsChange={ handleListingsChange }
                 />
             </NavBar>
             <Container fluid className='p-2 data-container'>
@@ -73,6 +77,9 @@ function Dashboard (props) {
                         </p>
                     </Col>
                 </Row>
+            </Container>
+            <Container >
+                <Listings listings={ listings } />
             </Container>
         </div>
         
