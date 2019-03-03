@@ -8,4 +8,17 @@ function GetSold (itemsList) {
     return soldList;
 }
 
-export { GetSold };
+function createListingArray (listings) {
+    let newListings = listings.map((listing) => ({
+        id: Date.now(),
+        title: listing.title[0],
+        price: listing.sellingStatus[0].currentPrice[0].__value__,
+        condition: listing.condition[0].conditionDisplayName[0],
+        sellingStatus: listing.sellingStatus[0].sellingState[0],
+        image: listing.galleryURL[0]
+    }))
+
+    return newListings;
+}
+
+export { GetSold, createListingArray };
