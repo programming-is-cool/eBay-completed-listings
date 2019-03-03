@@ -2,7 +2,7 @@ import React from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import CompletedListingsRequest from '../../utils/api_request'
-import { GetSold } from '../../utils/parsing'
+import { GetSold, createListingArray } from '../../utils/parsing'
 import { SalePriceAverage, getSoldPct } from '../../utils/calculations'
 require('../../assets/css/bootstrap.min.css')
 
@@ -28,10 +28,13 @@ class KeywordSearch extends React.Component {
                 const statusRes = data.findCompletedItemsResponse[0].ack[0];
                 if (statusRes === 'Success') {
                     const itemsList = data.findCompletedItemsResponse[0].searchResult[0].item;
-                    const listingQty = data.findCompletedItemsResponse[0].searchResult[0]['@count']; 
+                    const listingQty = data.findCompletedItemsResponse[0].searchResult[0]['@count'];
+                    const listings = createListingArray(itemsList);
                     const soldList = GetSold(itemsList)
                     const avgSalesPrice = SalePriceAverage(soldList)
                     const soldPct = getSoldPct(soldList, listingQty)
+
+                    this.props.handleListingsChange(listings)
                     this.props.handlelistingQtyChange(listingQty)
                     this.props.handlePctSoldChange(soldPct)
                     this.props.handleAvgSalesChange(avgSalesPrice)
