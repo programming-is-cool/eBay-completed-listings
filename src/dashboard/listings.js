@@ -5,8 +5,8 @@ import Col from 'react-bootstrap/Col'
 require('../../assets/css/bootstrap.min.css')
 
 function Listings(props) {
-    const content = props.listings.map((listing) =>
-        <Card className={ "listings-elems" } >
+    const content = props.listings.map((listing, i) =>
+        <Card key={ i + Math.random() }  className={ "listings-elems" } >
             <Row className={ "no-gutters" }>
                 <Col md={ 3 }>
                     <Card.Img variant="top" src={ listing.image } className={ "img-thumbnail" }/>
