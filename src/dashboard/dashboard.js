@@ -31,7 +31,7 @@ function Dashboard (props) {
     const dashHistory = props.history;
 
     return(
-        <div>
+        <div id={ "dash_div" }>
             <NavBar sticky="top" bg="dark">
                 <ChangeAppID 
                     appID={ appID }
@@ -52,7 +52,7 @@ function Dashboard (props) {
             </NavBar>
             <Container fluid className='p-2 data-container'>
                 <Row className='justify-content-center text-center'>
-                    <Col md={3} className='text-center py-3 mx-2 bg-white data-container-border'>
+                    <Col md={3} className='text-center py-3 mx-2 bg-white data-elems-border'>
                         <p className='my-1'>
                             Average Sale Price:
                             <span className='text-success'>
@@ -60,7 +60,7 @@ function Dashboard (props) {
                             </span>
                         </p>
                     </Col>
-                    <Col md={3} className='text-center py-3 mx-2 bg-white data-container-border'>
+                    <Col md={3} className='text-center py-3 mx-2 bg-white data-elems-border'>
                         <p className='my-1'>
                             Quantity: 
                             <span className='text-success'>
@@ -68,7 +68,7 @@ function Dashboard (props) {
                             </span>
                         </p>
                     </Col>
-                    <Col md={3} className='text-center py-3 mx-2 bg-white data-container-border'>
+                    <Col md={3} className='text-center py-3 mx-2 bg-white data-elems-border'>
                         <p className='my-1'>
                             Percentage Sold: 
                             <span className='text-success'>
@@ -78,7 +78,7 @@ function Dashboard (props) {
                     </Col>
                 </Row>
             </Container>
-            <Container >
+            <Container className={ "listings-containers" }>
                 <Listings listings={ listings } />
             </Container>
         </div>

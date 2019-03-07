@@ -1,9 +1,22 @@
+#dash_div {
+    background: #f5f7f6;
+}
+
 .data-container {
     background: #f5f7f6;
     border-bottom: 1px solid #e1e1e1;
 }
 
-.data-container-border {
+.data-elems-border {
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+}
+
+.listings-containers {
+    background: #f5f7f6;
+
+}
+.listings-elems {
     border: 1px solid #e1e1e1;
     border-radius: 4px;
 }
