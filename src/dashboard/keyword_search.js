@@ -6,24 +6,19 @@ import { GetSold, createListingArray } from '../../utils/parsing'
 import { SalePriceAverage, getSoldPct } from '../../utils/calculations'
 require('../../assets/css/bootstrap.min.css')
 
-class KeywordSearch extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+function KeywordSearch(props) {
+
+    const handleChange = (event) => {
+        event.preventDefault();
+        props.keywordChange(event.target.value)
     }
 
-    handleChange(event) {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        this.props.keywordChange(event.target.value)
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
-        if (!this.props.keywords) {
+        if (!props.keywords) {
             alert('The keyword field is blank.');
         } else { 
-            CompletedListingsRequest(this.props.appID, this.props.keywords)
+            CompletedListingsRequest(props.appID, props.keywords)
             .then((data) => {
                 const statusRes = data.findCompletedItemsResponse[0].ack[0];
                 if (statusRes === 'Success') {
@@ -33,11 +28,10 @@ class KeywordSearch extends React.Component {
                     const soldList = GetSold(itemsList)
                     const avgSalesPrice = SalePriceAverage(soldList)
                     const soldPct = getSoldPct(soldList, listingQty)
-
-                    this.props.handleListingsChange(listings)
-                    this.props.handlelistingQtyChange(listingQty)
-                    this.props.handlePctSoldChange(soldPct)
-                    this.props.handleAvgSalesChange(avgSalesPrice)
+                    props.handleListingsChange(listings)
+                    props.handlelistingQtyChange(listingQty)
+                    props.handlePctSoldChange(soldPct)
+                    props.handleAvgSalesChange(avgSalesPrice)
                 } else if (statusRes === 'Failure') {
                     alert('No information from eBay was retrieved.  Check your keywords and try again.')
                 }
@@ -48,26 +42,18 @@ class KeywordSearch extends React.Component {
         }
     }
 
-    render() {
-        // State passed down from Dashboard component, which received 
-        // the State from "App" component
-        const keywords = this.props.keywords;
-        const handleChange = this.handleChange;
-        const handleSubmit = this.handleSubmit;
-
-        return(
-            <Form inline className='mx-auto' onSubmit={ handleSubmit }>
-                <Form.Label className="mr-2 text-white">Keywords</Form.Label>
-                <Form.Control value={ keywords } placeholder="Enter search keywords" onChange={ handleChange }/>
-                {/* <Form.Text>
-                    Use a User token if users other than the eBay dev account holder is using the app.
-                </Form.Text> */}
-                <Button className='ml-2' variant='warning' onClick={ handleSubmit }>
-                    Submit
-                </Button>
-            </Form>
-        );
-    }
+    return(
+        <Form inline className='mx-auto' onSubmit={ handleSubmit }>
+            <Form.Label className="mr-2 text-white">Keywords</Form.Label>
+            <Form.Control value={ props.keywords } placeholder="Enter search keywords" onChange={ handleChange }/>
+            {/* <Form.Text>
+                Use a User token if users other than the eBay dev account holder is using the app.
+            </Form.Text> */}
+            <Button className='ml-2' variant='warning' onClick={ handleSubmit }>
+                Submit
+            </Button>
+        </Form>
+    );
 }
 
 export default KeywordSearch;
