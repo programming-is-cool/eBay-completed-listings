@@ -15,7 +15,7 @@ function CompletedListingsRequest (appID, keywords) {
 
     let promise = new Promise((resolve, reject) => {
 
-        https.get(baseUrl, (response) => {
+        const req = https.get(baseUrl, (response) => {
 
             let data = '';
 
@@ -36,6 +36,15 @@ function CompletedListingsRequest (appID, keywords) {
                 }
             })
 
+        })
+        req.on('error', (error) => {
+            if (error.message === 'Failed to fetch') {
+                alert('Failed to connect to the server.')
+                reject(error)
+            } else {
+                console.log('Unknown error. ' + error.message)
+                reject(error)
+            }
         })
 
     })
