@@ -14,9 +14,7 @@ function VerifyAppID (appID) {
         baseUrl += 'itemFilter(0).value=3000'
 
     let promise = new Promise((resolve, reject) => {
-        let authenticated = false;
-
-        https.get(baseUrl, (response) => {
+        const req = https.get(baseUrl, (response) => {
             let data = '';
 
             response.on('data', (chunk) => {
@@ -27,25 +25,28 @@ function VerifyAppID (appID) {
                 try {
                     var jsonData = JSON.parse(data);
                 } catch (error) {
-                    console.log('There was an error parsing the JSON file. ' + error.message)
-                    reject(authenticated)
+                    reject(`There was an error parsing the JSON file. ${error.message}`)
                 }
-
                 if (response.statusCode == 200 && jsonData.findCompletedItemsResponse[0].ack[0] === 'Success') {
-                    authenticated = true;
-                    resolve(authenticated)
+                    resolve()
+                } else {
+                    try {
+                        var auth_message = jsonData.errorMessage[0].error[0].message[0]
+                        console.log(auth_message)
+                        reject('Invalid App ID.  Please enter a valid App ID.');
+                    } catch (error) {
+                        reject('An unknown error has occurred.');
+                    }
                 }
-
-                try {
-                    var auth_message = jsonData.errorMessage[0].error[0].message[0]
-                    console.log(auth_message)
-                    reject(authenticated);
-                } catch (error) {
-                    console.log('An unknown error has occurred.')
-                    reject(authenticated);
-                }
-
             })
+        })
+        req.on('error', (error) => {
+            if (error.message === 'Failed to fetch') {
+                reject('Failed to connect to the server.')
+            } else {
+                console.log(`Unknown error. ${error.message}`)
+                reject(error)
+            }
         })
     })
     return promise;
