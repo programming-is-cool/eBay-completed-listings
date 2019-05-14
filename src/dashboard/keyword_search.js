@@ -21,9 +21,10 @@ function KeywordSearch(props) {
             CompletedListingsRequest(props.appID, props.keywords)
             .then((data) => {
                 const statusRes = data.findCompletedItemsResponse[0].ack[0];
-                if (statusRes === 'Success') {
+                const count = data.findCompletedItemsResponse[0].searchResult[0]['@count'];
+                if (statusRes === 'Success' && count > '0') {
                     const itemsList = data.findCompletedItemsResponse[0].searchResult[0].item;
-                    const listingQty = data.findCompletedItemsResponse[0].searchResult[0]['@count'];
+                    const listingQty = count;
                     const listings = createListingArray(itemsList);
                     const soldList = GetSold(itemsList)
                     const avgSalesPrice = SalePriceAverage(soldList)
@@ -32,7 +33,7 @@ function KeywordSearch(props) {
                     props.handlelistingQtyChange(listingQty)
                     props.handlePctSoldChange(soldPct)
                     props.handleAvgSalesChange(avgSalesPrice)
-                } else if (statusRes === 'Failure') {
+                } else if (statusRes === 'Failure' || count === '0') {
                     alert('No information from eBay was retrieved.  Check your keywords and try again.')
                 }
             })
