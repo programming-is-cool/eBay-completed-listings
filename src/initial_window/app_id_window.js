@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -8,9 +7,12 @@ import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
 import VerifyAppID from '../../utils/verify_app_id'
 
-import '../../assets/css/bootstrap.min.css'
+require('../../assets/icons/font_awesome/all.min.js')
+require('../../assets/css/bootstrap.min.css')
 
 function AppIDWindow(props) {
+    const [submitting, setSubmitting] = useState(false);
+
     let tempAppID = props.tempAppID;
 
     const handleChange = (event) => {
@@ -20,7 +22,9 @@ function AppIDWindow(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        setSubmitting(true);
         if (!tempAppID) {
+            setSubmitting(false);
             alert('The App ID field is blank.')
         } else {
             VerifyAppID(tempAppID)
@@ -28,11 +32,14 @@ function AppIDWindow(props) {
                 props.appIDChange(tempAppID)
                 props.tempAppIDChange('')
                 if (props.dashHistory) {
+                    setSubmitting(false);
                     props.closeModal();
                 } else {
+                    setSubmitting(false);
                     props.history.push('/dashboard');
                 }
             }).catch((data) => {
+                setSubmitting(false);
                 alert(data)
                 props.tempAppIDChange('')
             });
@@ -57,9 +64,7 @@ function AppIDWindow(props) {
                         {/* <Form.Text>
                             Use a User token if users other than the eBay dev account holder is using the app.
                         </Form.Text> */}
-                        <Button className='mt-4 btn-block' variant='warning' onClick={ handleSubmit }>
-                            Submit
-                        </Button>
+                        <Button className='mt-4 btn-block' variant='warning' onClick={ handleSubmit }>{ submitting ? <div><span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" /> Submitting... </div> : 'Submit' }</Button>
                     </Form>
                 </Col>
                 <Col xs={ 2 } lg={ 3 }></Col>

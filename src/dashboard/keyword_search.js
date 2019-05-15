@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import CompletedListingsRequest from '../../utils/api_request'
 import { GetSold, createListingArray } from '../../utils/parsing'
 import { SalePriceAverage, getSoldPct } from '../../utils/calculations'
+
+require('../../assets/icons/font_awesome/all.min.js')
 require('../../assets/css/bootstrap.min.css')
 
 function KeywordSearch(props) {
+    const [submitting, setSubmitting] = useState(false);
 
     const handleChange = (event) => {
         event.preventDefault();
@@ -15,7 +18,9 @@ function KeywordSearch(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        setSubmitting(true);
         if (!props.keywords) {
+            setSubmitting(false);
             alert('The keyword field is blank.');
         } else { 
             CompletedListingsRequest(props.appID, props.keywords)
@@ -33,11 +38,14 @@ function KeywordSearch(props) {
                     props.handlelistingQtyChange(listingQty)
                     props.handlePctSoldChange(soldPct)
                     props.handleAvgSalesChange(avgSalesPrice)
+                    setSubmitting(false);
                 } else if (statusRes === 'Failure' || count === '0') {
+                    setSubmitting(false);
                     alert('No information from eBay was retrieved.  Check your keywords and try again.')
                 }
             })
             .catch((data) => {
+                setSubmitting(false);
                 console.log(data)
             })
         }
@@ -50,9 +58,7 @@ function KeywordSearch(props) {
             {/* <Form.Text>
                 Use a User token if users other than the eBay dev account holder is using the app.
             </Form.Text> */}
-            <Button className='ml-2' variant='warning' onClick={ handleSubmit }>
-                Submit
-            </Button>
+            <Button className='ml-2' variant='warning' onClick={ handleSubmit }>{ submitting ? <div><span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" /> Searching... </div> : 'Submit' }</Button>
         </Form>
     );
 }
