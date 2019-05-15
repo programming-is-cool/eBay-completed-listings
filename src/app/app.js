@@ -1,120 +1,75 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom'
 import { HashRouter as Router, Route } from 'react-router-dom'
 import AppIDWindow from '../initial_window/app_id_window'
 import Dashboard from '../dashboard/dashboard';
 
-class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleAppIDChange = this.handleAppIDChange.bind(this);
-        this.handleTempAppIDChange = this.handleTempAppIDChange.bind(this);
-        this.handleKeywordChange = this.handleKeywordChange.bind(this);
-        this.handleAvgSalesChange = this.handleAvgSalesChange.bind(this);
-        this.handlelistingQtyChange = this.handlelistingQtyChange.bind(this);
-        this.handlePctSoldChange = this.handlePctSoldChange.bind(this);
-        this.handleListingsChange = this.handleListingsChange.bind(this);
-        this.state = {
-            appID: '',
-            tempAppID: '',
-            keywords: '',
-            avgSalePrice: 0,
-            listingQty: 0,
-            pctSold: 0,
-            listings: []
-        }
+function App (props) {
+    const [appID, setAppID] = useState('');
+    const [tempAppID, setTempAppID] = useState('');
+    const [keywords, setKeywords] = useState('');
+    const [avgSalePrice, setAvgSalePrice] = useState(0);
+    const [listingQty, setListingQty] = useState(0);
+    const [pctSold, setPctSold] = useState(0);
+    const [listings, setListings] = useState([]);
+
+    const handleAppIDChange = (appID) => {
+        setAppID(appID);
     }
 
-     handleAppIDChange(appID) {
-        this.setState({
-            appID: appID
-        });
+    const handleTempAppIDChange = (tempAppID) => {
+        setTempAppID(tempAppID);
     }
 
-    handleTempAppIDChange(tempAppID) {
-        this.setState({
-            tempAppID: tempAppID
-        });
+    const handleKeywordChange = (keywords) => {
+        setKeywords(keywords);
     }
 
-    handleKeywordChange(keywords) {
-        this.setState({
-            keywords: keywords
-        });
+    const handleAvgSalesChange = (avgSalePrice) => {
+        setAvgSalePrice(avgSalePrice);
     }
 
-    handleAvgSalesChange(avgSalePrice) {
-        this.setState({
-            avgSalePrice: avgSalePrice
-        })
+    const handlelistingQtyChange = (listingQty) => {
+        setListingQty(listingQty);
     }
 
-    handlelistingQtyChange(listingQty) {
-        this.setState({
-            listingQty: listingQty
-        })
+    const handlePctSoldChange = (pctSold) => {
+        setPctSold(pctSold);
     }
 
-    handlePctSoldChange(pctSold) {
-        this.setState({
-            pctSold: pctSold
-        })
+    const handleListingsChange = (listings) => {
+        setListings(listings);
     }
 
-    handleListingsChange(listings) {
-        this.setState({
-            listings: listings
-        })
-    }
-
-    render() {
-
-        const appID = this.state.appID;
-        const tempAppID = this.state.tempAppID;
-        const keywords = this.state.keywords;
-        const avgSalePrice = this.state.avgSalePrice;
-        const listingQty = this.state.listingQty;
-        const pctSold = this.state.pctSold;
-        const listings = this.state.listings;
-
-        const handleAppIDChange = this.handleAppIDChange;
-        const handleTempAppIDChange = this.handleTempAppIDChange;
-        const handleKeywordChange = this.handleKeywordChange;
-        const handleAvgSalesChange = this.handleAvgSalesChange;
-        const handlelistingQtyChange = this.handlelistingQtyChange;
-        const handlePctSoldChange = this.handlePctSoldChange;
-        const handleListingsChange = this.handleListingsChange;
-
-        return(
-            <div>
-                <Route exact path='/' render={ (props) => 
-                    <AppIDWindow {...props}
-                        tempAppID={ tempAppID }
-                        tempAppIDChange={ handleTempAppIDChange }
-                        appIDChange={ handleAppIDChange } 
-                    /> }  
-                />
-                <Route path="/dashboard" render={ (props) => 
-                    <Dashboard {...props}
-                        appID={ appID }
-                        tempAppID={ tempAppID }
-                        keywords={ keywords } 
-                        avgSalePrice={ avgSalePrice }
-                        listingQty={ listingQty }
-                        pctSold={ pctSold }
-                        listings={ listings }
-                        tempAppIDChange={ handleTempAppIDChange }
-                        appIDChange={ handleAppIDChange }
-                        keywordChange={ handleKeywordChange }
-                        handleAvgSalesChange={ handleAvgSalesChange }
-                        handlelistingQtyChange={ handlelistingQtyChange }
-                        handlePctSoldChange={ handlePctSoldChange }
-                        handleListingsChange={ handleListingsChange } 
-                    /> } 
-                />
-            </div>
-        );
-    }
+    return(
+        <div>
+            <Route exact path='/' render={ (props) => 
+                <AppIDWindow {...props}
+                    tempAppID={ tempAppID }
+                    tempAppIDChange={ handleTempAppIDChange }
+                    appIDChange={ handleAppIDChange } 
+                /> }  
+            />
+            <Route path="/dashboard" render={ (props) => 
+                <Dashboard {...props}
+                    appID={ appID }
+                    tempAppID={ tempAppID }
+                    keywords={ keywords } 
+                    avgSalePrice={ avgSalePrice }
+                    listingQty={ listingQty }
+                    pctSold={ pctSold }
+                    listings={ listings }
+                    tempAppIDChange={ handleTempAppIDChange }
+                    appIDChange={ handleAppIDChange }
+                    keywordChange={ handleKeywordChange }
+                    handleAvgSalesChange={ handleAvgSalesChange }
+                    handlelistingQtyChange={ handlelistingQtyChange }
+                    handlePctSoldChange={ handlePctSoldChange }
+                    handleListingsChange={ handleListingsChange } 
+                /> } 
+            />
+        </div>
+    );
 }
 
 ReactDOM.render(

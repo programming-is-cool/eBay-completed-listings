@@ -1,58 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Navbar from 'react-bootstrap/Navbar'
 import Modal from 'react-bootstrap/Modal'
 import AppIDWindow from '../initial_window/app_id_window'
 require('../../assets/css/bootstrap.min.css');
 
-class ChangeAppID extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleModalOpen = this.handleModalOpen.bind(this);
-        this.handleModalClose = this.handleModalClose.bind(this);
-        this.state = {
-            showModal: false
-        };
+function ChangeAppID(props) {
+    const [showModal, setShowModal] = useState(false);
+
+    const handleModalOpen = () => {
+        setShowModal(true);
     }
 
-    handleModalOpen() {
-        this.setState({
-            showModal: true
-        });
-    }
-
-    handleModalClose() {
-        this.setState({
-            showModal: false
-        });
+    const handleModalClose = () => {
+        setShowModal(false);
     }
     
-    render() {
-        const appID = this.props.appID;
-        const tempAppID = this.props.tempAppID;
-        const appIDChange = this.props.appIDChange;
-        const tempAppIDChange = this.props.tempAppIDChange;
-        const handleModalClose = this.handleModalClose;
-        const dashHistory = this.props.dashHistory;
+    const appID = props.appID;
+    const tempAppID = props.tempAppID;
+    const appIDChange = props.appIDChange;
+    const tempAppIDChange = props.tempAppIDChange;
+    const dashHistory = props.dashHistory;
 
-        return(
-            <div>
-                <Button variant="warning" onClick={ this.handleModalOpen }>Change API Key</Button>
-                <Modal show={ this.state.showModal } onHide={ this.handleModalClose }>
-                    <Modal.Body>
-                        <AppIDWindow 
-                            appID={ appID } 
-                            tempAppID={ tempAppID }
-                            appIDChange={ appIDChange } 
-                            tempAppIDChange={ tempAppIDChange }
-                            dashHistory={ dashHistory }
-                            closeModal={ handleModalClose }
-                        />
-                    </Modal.Body>
-                </Modal>
-            </div>
-        );
-    }
+    return(
+        <div>
+            <Button variant="warning" onClick={ handleModalOpen }>Change API Key</Button>
+            <Modal show={ showModal } onHide={ handleModalClose }>
+                <Modal.Body>
+                    <AppIDWindow 
+                        appID={ appID } 
+                        tempAppID={ tempAppID }
+                        appIDChange={ appIDChange } 
+                        tempAppIDChange={ tempAppIDChange }
+                        dashHistory={ dashHistory }
+                        closeModal={ handleModalClose }
+                    />
+                </Modal.Body>
+            </Modal>
+        </div>
+    );
 }
 
 export default ChangeAppID;
