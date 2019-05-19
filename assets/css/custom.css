@@ -20,3 +20,15 @@
     border: 1px solid #e1e1e1;
     border-radius: 4px;
 }
+
+.center-page {
+    position: relative;
+    margin: 350px auto;
+    width: 175px;
+}
+
+.loading-wheel-center {
+    position: relative;
+    margin: 0px auto;
+    width: 35px;
+}
