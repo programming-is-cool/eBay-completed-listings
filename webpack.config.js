@@ -31,6 +31,7 @@ const config = {
     //     historyApiFallback: true
     // },
     mode: 'development',
+    target: 'electron-renderer',
     plugins: [
         new HtmlWebpackPlugin(
             {
