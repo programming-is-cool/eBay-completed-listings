@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom'
 import { HashRouter as Router, Route } from 'react-router-dom'
-import AppIDWindow from '../initial_window/app_id_window'
-import Dashboard from '../dashboard/dashboard';
+import AppIDWindow from '../components/appIDWindow'
+import Dashboard from '../components/dashboard';
+import InitialLoad from '../components/initialLoad';
+
+require('../../assets/css/bootstrap.min.css')
 
 function App (props) {
     const [appID, setAppID] = useState('');
@@ -44,7 +47,16 @@ function App (props) {
     return(
         <div>
             <Route exact path='/' render={ (props) => 
+                <InitialLoad {...props} 
+                    appID={ appID }
+                    tempAppID={ tempAppID }
+                    tempAppIDChange={ handleTempAppIDChange }
+                    appIDChange={ handleAppIDChange } 
+                /> } 
+            />
+            <Route path='/appid' render={ (props) => 
                 <AppIDWindow {...props}
+                    appID={ appID }
                     tempAppID={ tempAppID }
                     tempAppIDChange={ handleTempAppIDChange }
                     appIDChange={ handleAppIDChange } 
