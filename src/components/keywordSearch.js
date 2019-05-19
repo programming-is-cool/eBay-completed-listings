@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import CompletedListingsRequest from '../../utils/api_request'
+import CompletedListingsRequest from '../../utils/apiRequest'
 import { GetSold, createListingArray } from '../../utils/parsing'
 import { SalePriceAverage, getSoldPct } from '../../utils/calculations'
 

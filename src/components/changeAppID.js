@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button'
-import Navbar from 'react-bootstrap/Navbar'
 import Modal from 'react-bootstrap/Modal'
-import AppIDWindow from '../initial_window/app_id_window'
+import AppIDWindow from '../components/appIDWindow'
 require('../../assets/css/bootstrap.min.css');
 
 function ChangeAppID(props) {

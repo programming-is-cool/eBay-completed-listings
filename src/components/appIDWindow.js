@@ -1,19 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
-import VerifyAppID from '../../utils/verify_app_id'
+import VerifyAppID from '../../utils/verifyAppID'
 
 require('../../assets/icons/font_awesome/all.min.js')
 require('../../assets/css/bootstrap.min.css')
 
 function AppIDWindow(props) {
     const [submitting, setSubmitting] = useState(false);
-
     let tempAppID = props.tempAppID;
+
+    useEffect(() => {
+        if(!props.appID) {
+            try {
+                const config = require('../../config.json')
+            } catch {
+                console.log('No config file found.')
+            }
+        } else {
+            
+        }
+    }, [])
 
     const handleChange = (event) => {
         event.preventDefault();
@@ -61,9 +72,6 @@ function AppIDWindow(props) {
                     <Form onSubmit={ handleSubmit }>
                         <Form.Label >App ID key</Form.Label>
                         <Form.Control value={ tempAppID } placeholder="Enter app ID" onChange={ handleChange }/>
-                        {/* <Form.Text>
-                            Use a User token if users other than the eBay dev account holder is using the app.
-                        </Form.Text> */}
                         <Button className='mt-4 btn-block' variant='warning' onClick={ handleSubmit }>{ submitting ? <div><span className="spinner-border spinner-border-sm" role="status" aria-hidden="true" /> Submitting... </div> : 'Submit' }</Button>
                     </Form>
                 </Col>

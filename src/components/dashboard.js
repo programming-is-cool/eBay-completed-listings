@@ -3,8 +3,8 @@ import NavBar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col'
-import ChangeAppID from './change_app_id'
-import KeywordSearch from './keyword_search'
+import ChangeAppID from './changeAppID'
+import KeywordSearch from './keywordSearch'
 import Listings from './listings'
 
 require('../../assets/css/bootstrap.min.css')
