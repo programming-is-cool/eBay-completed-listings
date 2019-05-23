@@ -15,7 +15,7 @@ function InitialLoad (props) {
         let configData;
         let chunks = appPath.split(`${appName}.app`);
         try {
-            configData = fs.readFileSync(`${chunks[0]}config.json`, 'utf-8');
+            configData = fs.readFileSync(`${chunks[0]}/config.json`, 'utf-8');
             let configJson = JSON.parse(configData);
             let token = configJson.token;
             if (!token) {
