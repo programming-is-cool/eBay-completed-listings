@@ -5,6 +5,8 @@ import CompletedListingsRequest from '../../utils/apiRequest'
 import { GetSold, createListingArray } from '../../utils/parsing'
 import { SalePriceAverage, getSoldPct } from '../../utils/calculations'
 
+const { dialog } = require('electron').remote
+
 require('../../assets/icons/font_awesome/all.min.js')
 require('../../assets/css/bootstrap.min.css')
 
@@ -21,7 +23,11 @@ function KeywordSearch(props) {
         setSubmitting(true);
         if (!props.keywords) {
             setSubmitting(false);
-            alert('The keyword field is blank.');
+            dialog.showMessageBox({
+                type: 'info',
+                buttons: ["Ok"],
+                message: 'The keyword field is blank.'
+            })
         } else { 
             CompletedListingsRequest(props.appID, props.keywords)
             .then((data) => {
@@ -41,7 +47,11 @@ function KeywordSearch(props) {
                     setSubmitting(false);
                 } else if (statusRes === 'Failure' || count === '0') {
                     setSubmitting(false);
-                    alert('No information from eBay was retrieved.  Check your keywords and try again.')
+                    dialog.showMessageBox({
+                        type: 'info',
+                        buttons: ["Ok"],
+                        message: 'No information from eBay was retrieved.  Check your keywords and try again.'
+                    })
                 }
             })
             .catch((data) => {

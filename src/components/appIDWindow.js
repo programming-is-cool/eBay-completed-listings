@@ -7,6 +7,8 @@ import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
 import VerifyAppID from '../../utils/verifyAppID'
 
+const { dialog } = require('electron').remote
+
 require('../../assets/icons/font_awesome/all.min.js')
 require('../../assets/css/bootstrap.min.css')
 
@@ -36,7 +38,11 @@ function AppIDWindow(props) {
         setSubmitting(true);
         if (!tempAppID) {
             setSubmitting(false);
-            alert('The App ID field is blank.')
+            dialog.showMessageBox({
+                type: 'info',
+                buttons: ["Ok"],
+                message: 'The App ID field is blank.'
+            })
         } else {
             VerifyAppID(tempAppID)
             .then((data) => {
@@ -51,7 +57,11 @@ function AppIDWindow(props) {
                 }
             }).catch((data) => {
                 setSubmitting(false);
-                alert(data)
+                dialog.showMessageBox({
+                    type: 'info',
+                    buttons: ["Ok"],
+                    message: data
+                })
                 props.tempAppIDChange('')
             });
         }
