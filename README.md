@@ -1,4 +1,4 @@
-# Completed Listings
+# eBay Completed Listings
 
 eBay Completed was created to give a quick breakdown of what an items average sale price and sold percentage is, 
 based off of the last 100 listings (if available) on eBay.  
