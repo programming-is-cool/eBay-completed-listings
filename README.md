@@ -14,7 +14,7 @@ cd path/to/your/directory
 # Following command requires installation of git
 git clone https://github.com/programming-is-cool/completed-listings.git
 cd completed-listings
-npm install # start command with sudo if you are on on a Mac
+npm install # start command with sudo if you are on a Mac
 npm start
 ```
 
