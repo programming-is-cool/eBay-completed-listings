@@ -7,8 +7,6 @@ import ChangeAppID from './changeAppID'
 import KeywordSearch from './keywordSearch'
 import Listings from './listings'
 
-require('../../assets/css/bootstrap.min.css')
-require('../../assets/css/custom.css')
 
 function Dashboard (props) {
     // State passed down from "App" component

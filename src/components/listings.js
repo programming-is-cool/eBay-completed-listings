@@ -2,7 +2,6 @@ import React from 'react'
 import Card from 'react-bootstrap/Card'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-require('../../assets/css/bootstrap.min.css')
 
 function Listings(props) {
     const content = props.listings.map((listing, i) =>

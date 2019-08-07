@@ -7,9 +7,6 @@ import { SalePriceAverage, getSoldPct } from '../../utils/calculations'
 
 const { dialog } = require('electron').remote
 
-require('../../assets/icons/font_awesome/all.min.js')
-require('../../assets/css/bootstrap.min.css')
-
 function KeywordSearch(props) {
     const [submitting, setSubmitting] = useState(false);
 

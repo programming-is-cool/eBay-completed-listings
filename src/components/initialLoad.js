@@ -5,10 +5,6 @@ const remote = require('electron').remote;
 const appPath = remote.app.getAppPath();
 const appName = remote.app.getName();
 
-require('../../assets/icons/font_awesome/all.min.js')
-require('../../assets/css/custom.css')
-require('../../assets/css/bootstrap.min.css')
-
 function InitialLoad (props) {
 
     useEffect(() => {

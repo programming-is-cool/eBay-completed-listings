@@ -9,9 +9,6 @@ import VerifyAppID from '../../utils/verifyAppID'
 
 const { dialog } = require('electron').remote
 
-require('../../assets/icons/font_awesome/all.min.js')
-require('../../assets/css/bootstrap.min.css')
-
 function AppIDWindow(props) {
     const [submitting, setSubmitting] = useState(false);
     let tempAppID = props.tempAppID;

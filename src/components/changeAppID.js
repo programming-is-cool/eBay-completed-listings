@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import AppIDWindow from '../components/appIDWindow'
-require('../../assets/css/bootstrap.min.css');
 
 function ChangeAppID(props) {
     const [showModal, setShowModal] = useState(false);

@@ -6,6 +6,7 @@ import Dashboard from '../components/dashboard';
 import InitialLoad from '../components/initialLoad';
 
 require('../../assets/css/bootstrap.min.css')
+require('../../assets/css/custom.css')
 
 function App (props) {
     const [appID, setAppID] = useState('');
