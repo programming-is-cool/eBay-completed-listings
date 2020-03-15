@@ -37,9 +37,13 @@ function createListingArray (listings) {
 
     const CheckCondition = (listingArray) => {
         let condition = listingArray.condition;
-        return (
-            condition ? condition[0].conditionDisplayName[0] : '--'
-        )
+        if (condition && condition[0].conditionDisplayName) {
+            return condition[0].conditionDisplayName[0];
+        } else {
+            return (
+                '--'
+            )
+        }
     }
 
     const CheckImage = (listingArray) => {
@@ -48,7 +52,8 @@ function createListingArray (listings) {
             image ? image[0] : noImage
         );
     }
-    let newListings = listings.map((listing) => ({
+    let newListings = listings.map((listing) => (
+        {
         id: Date.now(),
         title: CheckTitle(listing),
         price: CheckPrice(listing),
